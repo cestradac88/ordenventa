@@ -10,6 +10,12 @@ export const routes: Routes = [
     // Define la ruta raíz de la aplicación ("/").
     component: OV
     // Indica que al acceder a la raíz se debe mostrar el componente OV.
+  },
+  {
+    path: 'cliente',
+    // Ruta para el formulario de cliente
+    loadComponent: () => import('./cliente/cliente').then(m => m.Cliente)
+    // Muestra el formulario de cliente en /cliente
   }
 ];
 // Exporta el arreglo de rutas para que Angular lo utilice en la configuración del router.

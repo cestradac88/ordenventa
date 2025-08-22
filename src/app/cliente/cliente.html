@@ -1,0 +1,39 @@
+<!-- Formulario SAP Fiori para registrar cliente (OCRD) -->
+<div class="cliente-form sap-fiori">
+  <h2>Registrar Cliente (SAP B1)</h2>
+  <form>
+    <!-- Número de documento (LicTradNum, RUC/DNI) -->
+    <label>
+      RUC / DNI:
+      <input type="text" pattern="[0-9]+" maxlength="11" [value]="LicTradNum()" (input)="LicTradNum.set($event.target.value)" required />
+    </label>
+    <!-- Nombre del cliente (CardName) -->
+    <label>
+      Nombre del Cliente:
+      <input type="text" [value]="CardName()" (input)="CardName.set($event.target.value)" required />
+    </label>
+    <!-- Código autogenerado (CardCode) -->
+    <label>
+      Código:
+      <input type="text" [value]="CardCode()" readonly />
+    </label>
+    <!-- Tipo de socio (CardType) -->
+    <label>
+      Tipo:
+      <input type="text" [value]="CardType" readonly />
+    </label>
+    <!-- Botón para registrar -->
+  <button type="button" (click)="registrarCliente()">Registrar</button>
+  <!-- Popup para mostrar la trama JSON antes de enviar -->
+  @if (mostrarPopup()) {
+    <div class="popup">
+      <div class="popup-content">
+        <h3>JSON a enviar</h3>
+        <pre>{{ jsonCliente() }}</pre>
+        <button type="button" (click)="enviarCliente()">Confirmar y Enviar</button>
+        <button type="button" (click)="cerrarPopup()">Cancelar</button>
+      </div>
+    </div>
+  }
+  </form>
+</div>
