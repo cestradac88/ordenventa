@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy, signal, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, computed, inject } from '@angular/core';
 import { DecimalPipe, CommonModule } from '@angular/common';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 // Importa las funciones y decoradores necesarios de Angular. 'signal' y 'computed' permiten manejar estado reactivo moderno.
 
 interface DetalleItem {
@@ -16,11 +17,12 @@ interface DetalleItem {
   templateUrl: './ov.html',
   styleUrl: './ov.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, DecimalPipe]
+  imports: [CommonModule, DecimalPipe, HttpClientModule]
 })
 // Configura el componente Angular. 'OnPush' optimiza el rendimiento al actualizar solo cuando cambian las señales.
 
 export class OV {
+  private http = inject(HttpClient);
   // Sección de señales para los campos de cabecera
   documento = signal(''); // RUC/DNI del cliente
   clienteCodigo = signal(''); // Código editable
@@ -73,19 +75,33 @@ export class OV {
   // Al guardar, genera el JSON y muestra el popup
   guardarOV() {
     const ov = {
-      cabecera: {
-        documento: this.documento(),
-        clienteCodigo: this.clienteCodigo(),
-        clienteNombre: this.clienteNombre(),
-        correlativo: this.correlativo(),
-        fechaOV: this.fechaOV(),
-        direccionEnvio: this.direccionEnvio()
-      },
-      detalle: this.detalle(),
-      total: this.total()
+      cliente_codigo: this.clienteCodigo(),
+      cliente_nombre: this.clienteNombre(),
+      documento: this.documento(),
+      fecha: this.fechaOV(),
+      direccion: this.direccionEnvio(),
+      total: this.total(),
+      detalles: this.detalle().map(item => ({
+        itemcode: item.codigo,
+        descripcion: item.descripcion,
+        precio: item.precioUnitario,
+        cantidad: item.cantidad,
+        subtotal: item.subtotal
+      }))
     };
+    // Mostrar el JSON en el popup
     this.jsonOV.set(JSON.stringify(ov, null, 2));
     this.mostrarPopup.set(true);
+
+    // Enviar al API PHP
+    this.http.post('http://localhost/orden-venta-api/guardar_orden.php', ov).subscribe({
+      next: resp => {
+        alert('Orden guardada correctamente: ' + JSON.stringify(resp));
+      },
+      error: err => {
+        alert('Error al guardar la orden: ' + JSON.stringify(err));
+      }
+    });
   }
   // Construye el objeto de la OV y lo convierte a JSON para mostrarlo en el popup. Impacto: permite validar la estructura antes de enviar al backend.
 
