@@ -1,114 +1,137 @@
+/*
+	Estilos SAP Fiori para el formulario de Orden de Venta
+	- Layout limpio y profesional
+	- Colores y bordes suaves
+	- Botones y campos accesibles
+*/
 .ov-form {
-	max-width: 800px;
-	margin: 2rem auto;
-	padding: 2rem;
-	background: #f3f6f9;
-	border-radius: 8px;
-	box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-	font-family: "72", "Arial", sans-serif;
+		/* Contenedor principal */
+		max-width: 800px;
+		margin: 2rem auto;
+		padding: 2rem;
+		background: #f3f6f9;
+		border-radius: 8px;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+		font-family: "72", "Arial", sans-serif;
 }
+/* Título principal */
 .ov-form h2 {
-	text-align: center;
-	margin-bottom: 1.5rem;
-	color: #0a6ed1;
-	font-weight: 600;
+		text-align: center;
+		margin-bottom: 1.5rem;
+		color: #0a6ed1;
+		font-weight: 600;
 }
+/* Secciones de cabecera y detalle */
 .ov-form fieldset {
-	border: 1px solid #d3dae6;
-	margin-bottom: 1.5rem;
-	padding: 1rem;
-	border-radius: 6px;
-	background: #fff;
+		border: 1px solid #d3dae6;
+		margin-bottom: 1.5rem;
+		padding: 1rem;
+		border-radius: 6px;
+		background: #fff;
 }
+/* Título de cada sección */
 .ov-form legend {
-	font-weight: 500;
-	color: #0854a0;
-	padding: 0 8px;
+		font-weight: 500;
+		color: #0854a0;
+		padding: 0 8px;
 }
+/* Etiquetas de los campos */
 .ov-form label {
-	display: block;
-	margin-bottom: 0.8rem;
-	color: #32363a;
-	font-size: 1rem;
+		display: block;
+		margin-bottom: 0.8rem;
+		color: #32363a;
+		font-size: 1rem;
 }
+/* Campos de entrada */
 .ov-form input[type="text"],
 .ov-form input[type="number"],
 .ov-form input[type="date"] {
-	width: 100%;
-	padding: 0.4rem 0.6rem;
-	margin-top: 0.2rem;
-	box-sizing: border-box;
-	border: 1px solid #d3dae6;
-	border-radius: 4px;
-	background: #f7f7f7;
-	font-size: 1rem;
-	transition: border-color 0.2s;
+		width: 100%;
+		padding: 0.4rem 0.6rem;
+		margin-top: 0.2rem;
+		box-sizing: border-box;
+		border: 1px solid #d3dae6;
+		border-radius: 4px;
+		background: #f7f7f7;
+		font-size: 1rem;
+		transition: border-color 0.2s;
 }
+/* Efecto de foco en los campos */
 .ov-form input:focus {
-	border-color: #0a6ed1;
-	outline: none;
+		border-color: #0a6ed1;
+		outline: none;
 }
+/* Tabla de productos */
 .ov-form table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-bottom: 1rem;
-	background: #fff;
+		width: 100%;
+		border-collapse: collapse;
+		margin-bottom: 1rem;
+		background: #fff;
 }
+/* Celdas de la tabla */
 .ov-form th, .ov-form td {
-	border: 1px solid #d3dae6;
-	padding: 0.5rem;
-	text-align: left;
-	font-size: 0.98rem;
+		border: 1px solid #d3dae6;
+		padding: 0.5rem;
+		text-align: left;
+		font-size: 0.98rem;
 }
+/* Encabezado de la tabla */
 .ov-form th {
-	background: #e5edf5;
-	color: #0854a0;
-	font-weight: 500;
+		background: #e5edf5;
+		color: #0854a0;
+		font-weight: 500;
 }
+/* Botones principales */
 .ov-form button {
-	padding: 0.5rem 1.2rem;
-	margin-top: 0.5rem;
-	border: none;
-	background: #0a6ed1;
-	color: #fff;
-	border-radius: 4px;
-	cursor: pointer;
-	font-size: 1rem;
-	transition: background 0.2s;
+		padding: 0.5rem 1.2rem;
+		margin-top: 0.5rem;
+		border: none;
+		background: #0a6ed1;
+		color: #fff;
+		border-radius: 4px;
+		cursor: pointer;
+		font-size: 1rem;
+		transition: background 0.2s;
 }
+/* Botón de eliminar línea */
 .ov-form button[type="button"] {
-	background: #e53935;
+		background: #e53935;
 }
+/* Efecto hover en botones */
 .ov-form button:hover {
-	background: #0854a0;
+		background: #0854a0;
 }
+/* Total de la OV */
 .ov-total {
-	text-align: right;
-	font-size: 1.2rem;
-	margin-bottom: 1rem;
-	color: #0a6ed1;
+		text-align: right;
+		font-size: 1.2rem;
+		margin-bottom: 1rem;
+		color: #0a6ed1;
 }
+/* Popup de confirmación */
 .popup {
-	position: fixed;
-	top: 0; left: 0; right: 0; bottom: 0;
-	background: rgba(0,0,0,0.3);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	z-index: 1000;
+		position: fixed;
+		top: 0; left: 0; right: 0; bottom: 0;
+		background: rgba(0,0,0,0.3);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 1000;
 }
+/* Contenido del popup */
 .popup-content {
-	background: #fff;
-	padding: 2rem;
-	border-radius: 8px;
-	box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-	min-width: 320px;
+		background: #fff;
+		padding: 2rem;
+		border-radius: 8px;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+		min-width: 320px;
 }
+/* JSON mostrado en el popup */
 .popup pre {
-	background: #f5f5f5;
-	padding: 1rem;
-	border-radius: 4px;
-	max-height: 300px;
-	overflow: auto;
-	font-size: 0.95rem;
+		background: #f5f5f5;
+		padding: 1rem;
+		border-radius: 4px;
+		max-height: 300px;
+		overflow: auto;
+		font-size: 0.95rem;
 }

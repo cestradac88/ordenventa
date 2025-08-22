@@ -41,7 +41,8 @@ export class OV {
   // 'computed' recalcula el total cada vez que cambia el detalle, asegurando que la UI siempre muestre el valor correcto.
 
   // Estado para mostrar el popup y el JSON generado
-  mostrarPopup = signal(false);
+  mostrarPopup = signal(false); // Controla la visibilidad del popup de mensajes
+  mensaje = signal(''); // Almacena el mensaje a mostrar en el popup (registro satisfactorio o error)
   jsonOV = signal('');
   // Estas señales controlan la visualización del popup y almacenan el JSON generado al guardar la OV.
 
@@ -89,25 +90,26 @@ export class OV {
         subtotal: item.subtotal
       }))
     };
-    // Mostrar el JSON en el popup
-    this.jsonOV.set(JSON.stringify(ov, null, 2));
-    this.mostrarPopup.set(true);
-
-    // Enviar al API PHP
-    this.http.post('http://localhost/orden-venta-api/guardar_orden.php', ov).subscribe({
-      next: resp => {
-        alert('Orden guardada correctamente: ' + JSON.stringify(resp));
-      },
-      error: err => {
-        alert('Error al guardar la orden: ' + JSON.stringify(err));
-      }
-    });
+      // Enviar al API PHP
+      this.http.post('http://localhost/orden-venta-api/guardar_orden.php', ov).subscribe({
+        next: () => {
+          // Solo muestra el mensaje personalizado, no el JSON de la respuesta
+          this.mensaje.set('¡Registro satisfactorio!');
+          this.mostrarPopup.set(true);
+        },
+        error: () => {
+          this.mensaje.set('Error al guardar la orden.');
+          this.mostrarPopup.set(true);
+        }
+      });
+  
   }
   // Construye el objeto de la OV y lo convierte a JSON para mostrarlo en el popup. Impacto: permite validar la estructura antes de enviar al backend.
 
   // Cierra el popup
   cerrarPopup() {
     this.mostrarPopup.set(false);
+    this.mensaje.set('');
   }
   // Permite cerrar el popup de visualización del JSON. Impacto: mejora la usabilidad.
 

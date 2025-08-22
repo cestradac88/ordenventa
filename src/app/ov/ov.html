@@ -1,36 +1,47 @@
+<!--
+  Formulario de Orden de Venta
+  - Cabecera: datos principales del cliente y la orden
+  - Detalle: productos, cantidades y totales
+  - Popup: muestra el JSON enviado al backend
+-->
 <div class="ov-form">
   <!-- Título principal del formulario -->
+  <!-- Título principal -->
   <h2>Orden de Venta</h2>
+  <!-- Formulario principal, ejecuta guardarOV al enviar -->
   <!-- Formulario principal, ejecuta guardarOV al enviar -->
   <form (submit)="guardarOV(); $event.preventDefault()">
     <!-- Sección de cabecera con los datos principales de la OV -->
     <fieldset>
       <legend>Cabecera</legend>
+      <!-- Código de Cliente editable -->
       <label>
         Código de Cliente:
         <input type="text" [value]="clienteCodigo()" (input)="clienteCodigo.set($event.target.value)" required />
       </label>
+      <!-- Documento del cliente (RUC/DNI) -->
       <label>
         Documento (RUC/DNI):
         <input type="text" [value]="documento()" (input)="documento.set($event.target.value)" required />
       </label>
+      <!-- Nombre del cliente -->
       <label>
         Nombre de Cliente:
         <input type="text" [value]="clienteNombre()" (input)="clienteNombre.set($event.target.value)" required />
       </label>
+      <!-- Correlativo autogenerado, solo lectura -->
       <label>
         Correlativo:
-        <!-- Solo lectura, autogenerado -->
         <input type="text" [value]="correlativo()" readonly />
       </label>
+      <!-- Fecha de la OV -->
       <label>
         Fecha OV:
-        <!-- Campo reactivo, inicializado con la fecha actual -->
         <input type="date" [value]="fechaOV()" (input)="fechaOV.set($event.target.value)" required />
       </label>
+      <!-- Dirección de envío -->
       <label>
         Dirección de Envío:
-        <!-- Campo reactivo, actualiza la señal direccionEnvio -->
         <input type="text" [value]="direccionEnvio()" (input)="direccionEnvio.set($event.target.value)" required />
       </label>
     </fieldset>
@@ -38,6 +49,7 @@
     <!-- Sección de detalle, permite agregar productos a la OV -->
     <fieldset>
       <legend>Detalle</legend>
+      <!-- Tabla de productos y cantidades -->
       <table>
         <thead>
           <tr>
@@ -53,19 +65,19 @@
           <!-- Recorre cada línea del detalle usando *ngFor -->
           <tr *ngFor="let item of detalle(); let i = index">
             <td>
-              <!-- Campo reactivo para el código del producto -->
+              <!-- Código del producto -->
               <input type="text" [value]="item.codigo" (input)="actualizarDetalle(i, 'codigo', $event.target.value)" required />
             </td>
             <td>
-              <!-- Campo reactivo para la descripción -->
+              <!-- Descripción del producto -->
               <input type="text" [value]="item.descripcion" (input)="actualizarDetalle(i, 'descripcion', $event.target.value)" required />
             </td>
             <td>
-              <!-- Campo reactivo para el precio unitario -->
+              <!-- Precio unitario -->
               <input type="number" min="0" step="0.01" [value]="item.precioUnitario" (input)="actualizarDetalle(i, 'precioUnitario', +$event.target.value)" required />
             </td>
             <td>
-              <!-- Campo reactivo para la cantidad -->
+              <!-- Cantidad -->
               <input type="number" min="1" step="1" [value]="item.cantidad" (input)="actualizarDetalle(i, 'cantidad', +$event.target.value)" required />
             </td>
             <td>
@@ -84,19 +96,21 @@
     </fieldset>
 
     <!-- Muestra el total calculado de la OV -->
+    <!-- Muestra el total calculado de la OV -->
     <div class="ov-total">
       <strong>Total: </strong>{{ total() | number:'1.2-2' }}
     </div>
 
     <!-- Botón para guardar la OV -->
-    <button type="submit">Guardar OV</button>
+  <!-- Botón para guardar la OV -->
+  <button type="submit">Guardar OV</button>
   </form>
 
   <!-- Popup que muestra el JSON generado al guardar la OV -->
+  <!-- Popup que muestra el mensaje de registro -->
   <div class="popup" *ngIf="mostrarPopup()">
     <div class="popup-content">
-      <h3>JSON a enviar</h3>
-      <pre>{{ jsonOV() }}</pre>
+      <h3>{{ mensaje() }}</h3>
       <button type="button" (click)="cerrarPopup()">Cerrar</button>
     </div>
   </div>
